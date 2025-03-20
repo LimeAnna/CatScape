@@ -1,5 +1,5 @@
 # C
-COLOR_PINK = (255, 20, 147)
+COLOR_PINK = (75, 42, 45)
 COLOR_WHITE = (255, 255, 255)
 
 # M
