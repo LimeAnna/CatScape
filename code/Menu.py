@@ -1,3 +1,4 @@
+import pygame
 import pygame.image
 from pygame.font import Font
 from pygame.rect import Rect
