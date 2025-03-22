@@ -19,10 +19,11 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
+        self.entity_list.append(EntityFactory.get_entity('Player'))
 
     def run(self):
         pygame.mixer_music.load(f'./asset/level1.mp3')
-        pygame.mixer_music.set_volume(0.3)
+        pygame.mixer_music.set_volume(0.2)
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
         while True:
