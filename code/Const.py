@@ -1,4 +1,6 @@
 # C
+import pygame.constants
+
 COLOR_PINK = (75, 42, 45)
 COLOR_WHITE = (255, 255, 255)
 
@@ -8,12 +10,17 @@ MENU_OPTION = ('NEW GAME',
                'EXIT')
 
 #E
+EVENT_ENEMY = pygame.USEREVENT + 1
+
 ENTITY_SPEED = {
     'Level1Bg0': 0,
     'Level1Bg1': 1,
     'Level1Bg2': 2,
     'Level1Bg3': 3,
     'Player' : 3,
+    'Enemy1' : 1,
+    'Enemy2' : 2,
+    'Enemy3' : 3,
 }
 
 # W
