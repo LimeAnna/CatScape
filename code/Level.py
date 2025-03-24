@@ -6,10 +6,11 @@ from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 
-from code.Const import COLOR_WHITE, WIN_HEIGHT, EVENT_ENEMY
+from code.Const import COLOR_WHITE, WIN_HEIGHT, EVENT_ENEMY, COLOR_ROSA, COLOR_ORANGE
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
+from code.Player import Player
 
 
 class Level:
@@ -32,31 +33,53 @@ class Level:
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
         while True:
-            clock.tick(60)
+            clock.tick(50)
+            # Preencher a tela com a cor de fundo ou fundo da tela
+            self.window.fill((0, 0, 0))  # ou outra cor dependendo do seu cenário
+
+            # Atualizar e desenhar todas as entidades
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
+
+                # Mostrar a saúde do Player
+                if ent.name == 'Player':
+                    self.level_text(20, f'Player - Health: {ent.health}', COLOR_ORANGE, (10, 20))
+
+            # Exibir o score
+                    self.level_text(20, f'Score: {EntityMediator.score}', COLOR_ROSA, (10, 40))
+
+            # Processar eventos
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == EVENT_ENEMY:
-                    enemy_count = sum(isinstance(ent, Entity) and 'Enemy' in ent.__class__.__name__ for ent in self.entity_list)
+                    enemy_count = sum(
+                        isinstance(ent, Entity) and 'Enemy' in ent.__class__.__name__ for ent in self.entity_list)
                     if enemy_count < self.MAX_ENEMIES:
-
                         self.entity_list.append(EntityFactory.get_entity('Enemy1'))
                         self.entity_list.append(EntityFactory.get_entity('Enemy2'))
                         self.entity_list.append(EntityFactory.get_entity('Enemy3'))
 
+            # Desenhar as outras informações do nível
             self.level_text(14, f'Level 1 - Timeout: {self.timeout / 1000:.1f}s', COLOR_WHITE, (10, 5))
             self.level_text(14, f'fps: {clock.get_fps():.0f}', COLOR_WHITE, (10, WIN_HEIGHT - 35))
             self.level_text(14, f'entidades: {len(self.entity_list)}', COLOR_WHITE, (10, WIN_HEIGHT - 20))
 
             pygame.display.flip()
 
-            #collisions
+            # Verificação de colisões
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
+
+            for ent in self.entity_list:
+                self.window.blit(source=ent.surf, dest=ent.rect)
+                ent.move()
+
+                # Se for o Player, chama update() para atualizar o efeito de dano
+                if isinstance(ent, Player):
+                    ent.update()
 
             # printed text
 

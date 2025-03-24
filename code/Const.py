@@ -3,6 +3,9 @@ import pygame.constants
 
 COLOR_PINK = (75, 42, 45)
 COLOR_WHITE = (255, 255, 255)
+COLOR_ORANGE = (255, 128, 0)
+COLOR_GREEN = (0, 128, 0)
+COLOR_ROSA = (255, 0, 132)
 
 # M
 MENU_OPTION = ('NEW GAME',
@@ -28,10 +31,32 @@ ENTITY_HEALTH = {
     'Level1Bg1' : 999,
     'Level1Bg2' : 999,
     'Level1Bg3' : 999,
-    'Player' : 300,
-    'Enemy1' : 50,
-    'Enemy2' : 30,
-    'Enemy3' : 20,
+    'Player' : 3,
+    'Enemy1' : 1,
+    'Enemy2' : 1,
+    'Enemy3' : 1,
+}
+
+ENTITY_DAMAGE = {
+    'Level1Bg0' : 0,
+    'Level1Bg1' : 0,
+    'Level1Bg2' : 0,
+    'Level1Bg3' : 0,
+    'Player' : 1,
+    'Enemy1' : 1,
+    'Enemy2' : 1,
+    'Enemy3' : 1,
+}
+
+ENTITY_SCORE = {
+    'Level1Bg0': 0,
+    'Level1Bg1': 0,
+    'Level1Bg2': 0,
+    'Level1Bg3': 0,
+    'Player' : 0,
+    'Enemy1' : 1,
+    'Enemy2' : 1,
+    'Enemy3' : 1,
 }
 
 # W
