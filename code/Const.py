@@ -23,6 +23,17 @@ ENTITY_SPEED = {
     'Enemy3' : 3,
 }
 
+ENTITY_HEALTH = {
+    'Level1Bg0' : 999,
+    'Level1Bg1' : 999,
+    'Level1Bg2' : 999,
+    'Level1Bg3' : 999,
+    'Player' : 300,
+    'Enemy1' : 50,
+    'Enemy2' : 30,
+    'Enemy3' : 20,
+}
+
 # W
 WIN_WIDTH = 600
 WIN_HEIGHT = 338
