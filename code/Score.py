@@ -4,8 +4,7 @@ from pygame.font import Font
 from pygame.rect import Rect
 from pygame.surface import Surface
 
-from code.Const import WIN_WIDTH, COLOR_PINK, COLOR_WHITE, WIN_HEIGHT, COLOR_ROSA
-from code.EntityMediator import EntityMediator  # Import to access current score
+from code.Const import WIN_WIDTH, COLOR_PINK, COLOR_WHITE, WIN_HEIGHT
 
 
 class Score:
@@ -22,28 +21,15 @@ class Score:
             (0, 160, 0)  # Verde claro para o 3º lugar
         ]
 
-    def save(self, score_entry: str):
+    def save(self, score: str):
         # Ler pontuações existentes
         scores = self.read_scores()
 
         # Adicionar nova pontuação
-        scores.append(score_entry)
+        scores.append(int(score))
 
-        # Ordenar em ordem decrescente baseado no score numérico e manter os 3 maiores
-        def parse_score(entry):
-            try:
-                # Tenta dividir a entrada em nome e pontuação
-                parts = entry.split(':')
-                if len(parts) == 2:
-                    return int(parts[1])
-                # Se não conseguir dividir, tenta converter a entrada inteira para int
-                return int(entry)
-            except (ValueError, IndexError):
-                # Se não conseguir converter, retorna 0
-                return 0
-
-        # Ordena os scores e mantém os 3 maiores
-        scores.sort(key=parse_score, reverse=True)
+        # Ordenar em ordem decrescente e manter os 3 maiores
+        scores.sort(reverse=True)
         scores = scores[:3]
 
         # Salvar pontuações
@@ -55,16 +41,11 @@ class Score:
         # Se o arquivo não existir, criar com scores zerados
         if not os.path.exists(self.score_file):
             with open(self.score_file, 'w') as f:
-                f.write("AAA:0\nBBB:0\nCCC:0\n")
+                f.write("0\n0\n0\n")
 
         # Ler pontuações
         with open(self.score_file, 'r') as f:
-            # Remove linhas em branco e strip
-            scores = [line.strip() for line in f.readlines() if line.strip()]
-
-        # Se o arquivo estiver vazio, usa valores padrão
-        if not scores:
-            scores = ["AAA:0", "BBB:0", "CCC:0"]
+            scores = [int(line.strip()) for line in f.readlines()]
 
         return scores
 
@@ -84,22 +65,13 @@ class Score:
             # Título da tela de scores
             self.score_text(50, "High Scores", COLOR_PINK, (WIN_WIDTH / 2, 100))
 
-            # Mostrar score atual na tela
-            self.score_text(35, f"Current Score: {EntityMediator.score}", COLOR_ROSA, (WIN_WIDTH / 2, 160))
-
             # Ler e mostrar pontuações
             scores = self.read_scores()
 
-            for i, score_entry in enumerate(scores, 1):
-                # Adiciona tratamento caso a entrada não tenha ':'
-                if ':' in score_entry:
-                    name, score = score_entry.split(':')
-                else:
-                    name, score = "AAA", score_entry
-
-                score_text = f"{i}. {name} - {score}"
+            for i, score in enumerate(scores, 1):
+                score_text = f"{i}. {score}"
                 color = self.score_colors[i - 1] if i <= 3 else COLOR_WHITE
-                self.score_text(35, score_text, color, (WIN_WIDTH / 2, 230 + 40 * (i - 1)))
+                self.score_text(35, score_text, color, (WIN_WIDTH / 2, 200 + 40 * (i - 1)))
 
             pygame.display.flip()
 

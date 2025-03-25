@@ -3,7 +3,6 @@ import pygame
 from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
 from code.Level import Level
 from code.Menu import Menu
-from code.PlayerNameInput import input_player_name
 from code.Score import Score
 from code.EntityMediator import EntityMediator  # Reset score
 
@@ -26,11 +25,14 @@ class Game:
                 level = Level(self.window, 'Level1Bg', menu_return)
                 level_return = level.run()
 
-                if level_return:  # Se o jogo terminou
-                    # Adicionar input de nome antes de salvar o score
-                    from code.Const import WIN_WIDTH, WIN_HEIGHT
-                    player_name = input_player_name(self.window, EntityMediator.score)
+                # ADICIONAR DIRETO PARA O SCORE
+                score.save(str(EntityMediator.score))
+                score.show()
 
-                    # Salvar score com o nome
-                    score.save(f"{player_name}:{EntityMediator.score}")
-                    score.show()
+            elif menu_return == MENU_OPTION[1]:
+                score.show()
+            elif menu_return == MENU_OPTION[2]:
+                pygame.quit()
+                quit()
+            else:
+                pass
