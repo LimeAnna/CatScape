@@ -9,7 +9,7 @@ from code.Const import WIN_WIDTH, COLOR_PINK, MENU_OPTION, COLOR_WHITE
 
 class Menu:
 
-    def __init__(self, window):
+    def __init__(self, window):  # Adicionei o parâmetro window
         self.window = window
         self.surf = pygame.image.load('./asset/menuCE.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
@@ -17,7 +17,7 @@ class Menu:
     def run(self, ):
         menu_option = 0
         pygame.mixer_music.load('./asset/Menu.mp3')
-        pygame.mixer_music.set_volume(0.2)
+        pygame.mixer_music.set_volume(0.1)
         pygame.mixer_music.play(-1)
         while True:
             # IMAGES
@@ -46,13 +46,10 @@ class Menu:
                     if event.key == pygame.K_UP: # UP KEY
                         if menu_option > 0:
                             menu_option -= 1
-
                         else:
                             menu_option = len(MENU_OPTION) - 1
                     if event.key == pygame.K_RETURN:  # UP ENTER
                         return MENU_OPTION[menu_option]
-
-
 
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont(name='palatinolinotype', size=text_size)

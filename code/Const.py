@@ -4,8 +4,8 @@ import pygame.constants
 COLOR_PINK = (75, 42, 45)
 COLOR_WHITE = (255, 255, 255)
 COLOR_ORANGE = (255, 128, 0)
-COLOR_GREEN = (0, 128, 0)
-COLOR_ROSA = (255, 0, 132)
+COLOR_GREEN = (0, 150, 0)
+COLOR_ROSA = (230, 0, 160)
 
 # M
 MENU_OPTION = ('NEW GAME',
