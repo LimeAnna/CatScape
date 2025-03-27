@@ -4,7 +4,7 @@ from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
 from code.Level import Level
 from code.Menu import Menu
 from code.Score import Score
-from code.EntityMediator import EntityMediator  # Reset score
+from code.EntityMediator import EntityMediator
 
 
 class Game:
@@ -14,7 +14,7 @@ class Game:
 
     def run(self, ):
         while True:
-            # Reset score at the start of each game loop
+
             EntityMediator.score = 0
 
             score = Score(self.window)
@@ -25,7 +25,7 @@ class Game:
                 level = Level(self.window, 'Level1Bg', menu_return)
                 level_return = level.run()
 
-                # ADICIONAR DIRETO PARA O SCORE
+
                 score.save(str(EntityMediator.score))
                 score.show()
 

@@ -7,13 +7,13 @@ class Player(Entity):
 
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
-        self.original_surf = self.surf.copy()  # Guarda a imagem original
-        self.is_hurt = False  # Estado de dano
-        self.hurt_timer = 0  # Temporizador de dano
+        self.original_surf = self.surf.copy()
+        self.is_hurt = False
+        self.hurt_timer = 0
 
-        # Carregar som de miado
-        self.meow_sound = pygame.mixer.Sound('./asset/meow.mp3')  # Caminho do som
-        self.meow_sound.set_volume(0.2)  # Ajustar volume se necessário
+        # miauuu
+        self.meow_sound = pygame.mixer.Sound('./asset/meow.mp3')
+        self.meow_sound.set_volume(0.2)
 
     def move(self):
         pressed_key = pygame.key.get_pressed()
@@ -27,16 +27,16 @@ class Player(Entity):
             self.rect.centerx += ENTITY_SPEED[self.name]
 
     def take_damage(self):
-        """Ativado quando o jogador sofre dano."""
-        if not self.is_hurt:  # Evita sobreposição de animação
+
+        if not self.is_hurt:
             self.is_hurt = True
-            self.hurt_timer = pygame.time.get_ticks()  # Marca o tempo inicial
-            self.surf.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)  # Fica vermelho
+            self.hurt_timer = pygame.time.get_ticks()
+            self.surf.fill((255, 0, 0), special_flags=pygame.BLEND_MULT)
             self.meow_sound.play()  # Toca o som
 
     def update(self):
-        """Reseta a cor do jogador após um tempo."""
+
         if self.is_hurt:
-            if pygame.time.get_ticks() - self.hurt_timer > 300:  # 300ms de dano
+            if pygame.time.get_ticks() - self.hurt_timer > 300:
                 self.is_hurt = False
-                self.surf = self.original_surf.copy()  # Volta à imagem original
+                self.surf = self.original_surf.copy()

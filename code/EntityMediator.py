@@ -4,14 +4,14 @@ from code.Player import Player
 
 
 class EntityMediator:
-    score = 0  # Adicionar uma variável para armazenar o score
+    score = 0
 
     @staticmethod
     def __verify_collision_window(ent: Entity):
         if isinstance(ent, Enemy):
-            if ent.rect.right < 0:  # Se o inimigo saiu da tela
-                EntityMediator.score += 1  # Aumenta o score por inimigo desviado
-                ent.health = 0  # Remove o inimigo da tela
+            if ent.rect.right < 0:
+                EntityMediator.score += 1  # score por inimigo desviado
+                ent.health = 0
 
     @staticmethod
     def __verify_collision_entity(ent1, ent2):
@@ -29,11 +29,9 @@ class EntityMediator:
             if (ent1.rect.right >= ent2.rect.left and ent1.rect.left <= ent2.rect.right and
                     ent1.rect.bottom >= ent2.rect.top and ent1.rect.top <= ent2.rect.bottom):
 
-                # Se for o jogador, ativa a animação de dano
                 if isinstance(player, Player):
                     player.take_damage()
 
-                # Reduz a vida normalmente
                 ent1.health -= ent2.damage
                 ent2.health -= ent1.damage
 

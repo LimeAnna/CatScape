@@ -24,7 +24,7 @@ class Level:
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
         self.entity_list.append(EntityFactory.get_entity('Player'))
 
-        self.MAX_ENEMIES = 6  # Limite de inimigos ativos
+        self.MAX_ENEMIES = 6  # Limite de inimigos ativos ?
         pygame.time.set_timer(EVENT_ENEMY, 3000)
 
     def run(self):
@@ -33,25 +33,24 @@ class Level:
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
 
-        # Find the player in the entity list
+
         player = next((ent for ent in self.entity_list if isinstance(ent, Player)), None)
 
-        while player.health > 0:  # Game continues while player has health
+        while player.health > 0:
             clock.tick(50)
-            # Preencher a tela com a cor de fundo ou fundo da tela
-            self.window.fill((0, 0, 0))  # ou outra cor dependendo do seu cenário
+            self.window.fill((0, 0, 0))
 
-            # Atualizar e desenhar todas as entidades
+
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
 
-                # Mostrar a saúde do Player
+                # saúde do jopgador
                 if ent.name == 'Player':
                     health_color = COLOR_GREEN if ent.health > 1 else COLOR_ORANGE
                     self.level_text(22, f'Player - Health: {ent.health}', health_color, (10, 10))
 
-                    # Exibir o score
+                    # score
                     self.level_text(20, f'Score: {EntityMediator.score}', COLOR_ROSA, (10, 30))
 
             # Processar eventos
@@ -67,14 +66,14 @@ class Level:
                         self.entity_list.append(EntityFactory.get_entity('Enemy2'))
                         self.entity_list.append(EntityFactory.get_entity('Enemy3'))
 
-            # Desenhar as outras informações do nível
+
             #self.level_text(14, f'Level 1, COLOR_WHITE, (10, 5))
             #self.level_text(14, f'fps: {clock.get_fps():.0f}', COLOR_WHITE, (10, WIN_HEIGHT - 35))
             #self.level_text(14, f'Dodged enemies: {len(self.entity_list)}', COLOR_WHITE, (10, WIN_HEIGHT - 20))
 
             pygame.display.flip()
 
-            # Verificação de colisões
+            # colisões
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
 
@@ -83,11 +82,10 @@ class Level:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
 
-                # Se for o Player, chama update() para atualizar o efeito de dano
+
                 if isinstance(ent, Player):
                     ent.update()
 
-        # Game Over: Return True to save the score
 
         return True
 
