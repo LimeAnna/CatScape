@@ -78,6 +78,7 @@ class Level:
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
 
+
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
@@ -87,6 +88,7 @@ class Level:
                     ent.update()
 
         # Game Over: Return True to save the score
+
         return True
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
